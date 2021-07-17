@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.5",
+    "@vitalets/google-translate-api": "^7.0.0",
     "react": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-android-installed-apps": "^1.0.1",
     "react-native-android-notification-listener": "^3.1.2",
-    "react-native-tts": "^4.1.0"
+    "react-native-tts": "^4.1.0",
+    "translate": "^1.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
