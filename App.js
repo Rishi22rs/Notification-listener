@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import CollapsibleCard from './components/CollapsibleCard'
 
 // const translate = require('@vitalets/google-translate-api');
 
@@ -65,7 +66,6 @@ const App= () => {
   }
 
 
-
 // To open the Android settings so the user can enable it
 const status = RNAndroidNotificationListener.getPermissionStatus()
 
@@ -86,12 +86,17 @@ const handleCheckNotificationInterval = async () => {
 }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView >
       <Text>Let's read you notifications.</Text>
-      <Button onPress={()=>OnClicking()} title="Press me"/>
-      <Image style={{width: 100, height: 50}} source={{uri:JSON.parse(msg).icon}}/>
+
     {totalNotification.length>0&&<ScrollView>
-      {totalNotification.map((x,key)=><Text key={key}>{JSON.parse(x).text}</Text>)}
+      {totalNotification.map((x,key)=><View><CollapsibleCard time={JSON.parse(x).time} app={JSON.parse(x).app} body={JSON.parse(x).title} collapsibleText={
+        `titleBig:${JSON.parse(x).titleBig}\n
+        text:${JSON.parse(x).text}\n
+        subText:${JSON.parse(x).title}\n
+        summaryText:${JSON.parse(x).summaryText}\n
+        bigText:${JSON.parse(x).bigText}\n`
+      }/></View>)}
     </ScrollView>}
     </SafeAreaView>
   );
