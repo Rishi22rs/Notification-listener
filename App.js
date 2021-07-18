@@ -16,7 +16,7 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View,Image,NativeModules
+  View,Image,NativeModules,Dimensions
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -29,6 +29,8 @@ import CollapsibleCard from './components/CollapsibleCard'
 import Tts from 'react-native-tts';
 
 import RNAndroidNotificationListener, { RNAndroidNotificationListenerHeadlessJsName } from 'react-native-android-notification-listener';
+
+const dimension=Dimensions.get('window')
 
 const App= () => {
   // let msg='{"time":69,"groupedMessages":[]}'
@@ -86,11 +88,11 @@ const handleCheckNotificationInterval = async () => {
 }
 
   return (
-    <SafeAreaView >
+    <SafeAreaView style={styles.container}>
       <Text>Let's read you notifications.</Text>
 
     {totalNotification.length>0&&<ScrollView>
-      {totalNotification.map((x,key)=><View><CollapsibleCard time={JSON.parse(x).time} app={JSON.parse(x).app} body={JSON.parse(x).title} collapsibleText={
+      {totalNotification.map((x,key)=><View key={key}><CollapsibleCard time={JSON.parse(x).time} app={JSON.parse(x).app} body={JSON.parse(x).title} collapsibleText={
         `titleBig:${JSON.parse(x).titleBig}\n
         text:${JSON.parse(x).text}\n
         subText:${JSON.parse(x).title}\n
@@ -104,10 +106,8 @@ const handleCheckNotificationInterval = async () => {
 
 const styles = StyleSheet.create({
   container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center',
-    backgroundColor:'white'
+    backgroundColor:'white',
+    height:dimension.height
   }
 });
 
