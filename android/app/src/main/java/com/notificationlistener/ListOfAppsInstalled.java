@@ -12,6 +12,8 @@ import com.facebook.react.bridge.Arguments;
 // import androidx.appcompat.app.AppCompatActivity;
 // import android.content.pm.ApplicationInfo;
 import 	android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import java.util.List;
 
 
@@ -25,23 +27,16 @@ public class ListOfAppsInstalled extends ReactContextBaseJavaModule {
         return "AppListModule";
     }
 
-    @ReactMethod
-    public void show(String message, Callback callBack){
-        // List<ApplicationInfo> listApplicationInfo = getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
-        // String[] stringsList = new String[listApplicationInfo.size()];
-        // int i=0;
-        // for (ApplicationInfo applicationInfo: listApplicationInfo){
-        //     stringsList[i] = applicationInfo.packageName;
-        //     i++;
-        // }
-        // String pm = getReactApplicationContext().getPackageManager().getInstalledPackages();
-        List<ApplicationInfo> pm=getReactApplicationContext().getPackageManager().getInstalledApplications(0);
-        // System.out.println("*************** "+pm);
 
-        String[] stringsList = new String[pm.size()];
+ @ReactMethod
+    public void show(String message, Callback callBack){
+        List<PackageInfo> packageList=getReactApplicationContext().getPackageManager().getInstalledPackages(0);
+        String[] stringsList = new String[packageList.size()];
         int i=0;
-        for (ApplicationInfo applicationInfo: pm){
-            stringsList[i] = applicationInfo.splitNames.toString();
+        for (PackageInfo packageInfo: packageList){
+            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)==0){
+                    stringsList[i] = packageInfo.applicationInfo.loadLabel(getReactApplicationContext().getPackageManager()).toString();
+            }
             i++;
         }
 

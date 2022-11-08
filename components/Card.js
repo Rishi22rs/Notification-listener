@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 
-const Card = ({time = '12', app = 'watsapp', body = 'hi'}) => {
+const Card = ({time = '12', app = 'watsapp', body = 'hi',iconUri}) => {
   return (
     <View style={styles.cWrapper}>
       <Text style={styles.cTime}>{time}</Text>
@@ -13,7 +13,7 @@ const Card = ({time = '12', app = 'watsapp', body = 'hi'}) => {
           <View style={styles.appIconWrapper}>
             <Image
               style={styles.appIcon}
-              source={{uri:"https://image.shutterstock.com/image-vector/telephone-icon-whatsapp-logo-phone-260nw-1169104867.jpg"}}
+              source={{uri:iconUri}}
             />
           </View>
         </View>
